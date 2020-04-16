@@ -15,7 +15,7 @@ log.addHandler(logging.StreamHandler(sys.stdout))
 
 class Main:
 
-    _gym = None
+    _env = None
 
     def __init__(self, args):
 
@@ -36,10 +36,10 @@ class Main:
                 params=self._args.hyperparams,
             )
 
-        self._gym = gym.make(self._args.environment)
+        self._env = gym.make(self._args.environment)
         self._agent = self.get_agent(self._args.agent)(
-            self._gym.observation_space,
-            self._gym.action_space,
+            self._env.observation_space,
+            self._env.action_space,
             hyperparams=self._args.hyperparams,
         )
 
@@ -54,7 +54,7 @@ class Main:
 
         self._total_reward = 0
         self._steps = 0
-        return self._gym.reset()
+        return self._env.reset()
 
     def episode(self):
 
@@ -63,7 +63,7 @@ class Main:
 
         while not done:
             action = self._agent.get_action(state)
-            state, reward, done, args = self._gym.step(action)
+            state, reward, done, args = self._env.step(action)
             self._total_reward += reward
             self._steps += 1
             self._agent.train(state, reward, done, args)

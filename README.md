@@ -1,10 +1,16 @@
 # Reinforcement Learning
 
-[Usage](#1.-usage) | [Agents](#2.-agents) | [Environments](#3.-environments)
-
 A little reinforcement learning project. _Learning by doing._
 
+[1) Usage](#1-usage): [1.1) Training](#11-training) [1.2) Analyzing](#12-analyzing)
+
+[2) Agents](#2-agents): [2.1) Q-Learning](#21-q-learning), [2.2) Proximal Policy Optimization](#22-proximal-policy-optimization)
+
+[3) Environments](#3-environments)
+
 ## 1) Usage:
+
+### 1.1) Training
 
 ```
 $ python train.py --help
@@ -31,6 +37,8 @@ optional arguments:
 $ python train.py --agent q_learning --environment FrozenLake8x8-v0
 ```
 
+### 1.2) Analyzing
+
 ## 2) Agents:
 
 All agents must exent the `Agent` class. Valid parameters to the `Agent` class constructor are:
@@ -39,15 +47,17 @@ All agents must exent the `Agent` class. Valid parameters to the `Agent` class c
 - `action_space`: Environment action space (Discrete. or Box)
 - `hyperparams`: Dictionary containing the agent hyperparameters.
 
+Each agent is designed to be self contained. This should help the readability of the code.
+
 ### 2.1) Q-Learning
 
-Tabular `QLearning` agent. Works for discrete state and action spaces.
+Tabular `QLearning` agent.
 
-**Formulas:**
+**Related formulas:**
 
-The Q-Learning update function.
+The Q-Learning update function:
 
-<img src="https://render.githubusercontent.com/render/math?math=Q^{new}(s_{t}, a_{t}) = Q(s_{t}, a_{t}) %2B \alpha * [ r_{t} %2B \gamma * maxQ_{a}(s_{t%2B1}, a) - Q(s_t, a_t) ]" />
+<img src="https://render.githubusercontent.com/render/math?math=Q(s_{t}, a_{t}) = (1 - \alpha) * Q(s_{t}, a_{t}) %2B \alpha * [ r_{t} %2B \gamma * maxQ_{a}(s_{t%2B1}, a) - Q(s_t, a_t) ]" />
 
 **Hyperparams:**
 
@@ -57,7 +67,9 @@ The Q-Learning update function.
 - `epsilon_decay`: `epsilon` decay factor: epsilon = epsilon * epsilon_decay.
 - `epsilon_min`: Minimum `epsilon` to be reached. Allows for continuous exploration.
 
-### 2.2) Vanilla Policy Gradient
+### 2.2) Proximal Policy Optimization
+
+Next up.
 
 ## 3) Environments
 
